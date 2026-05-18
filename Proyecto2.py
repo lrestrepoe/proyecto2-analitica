@@ -7,7 +7,7 @@ import unicodedata
 # 1. CONFIGURACIÓN
 # ============================================================
 
-CARPETA_DATOS = r"C:\Users\dburg\Desktop\Analítica\Proyecto 2"
+CARPETA_DATOS = Path(__file__).resolve().parent
 NOMBRE_ARCHIVO = "DatosSaber11_Bolivar.csv"
 
 PERIODO_MINIMO = 20141
