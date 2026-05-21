@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/macbook/Desktop/Andes/Semestre 8/Analitica/Proyecto 2/proyecto2-analitica/mlruns/362485170669564923/1fe92dbdf50849ff9b640d305a95e69c/artifacts
+end_time: 1779331931824
+entry_point_name: ''
+experiment_id: '362485170669564923'
+lifecycle_stage: active
+run_id: 1fe92dbdf50849ff9b640d305a95e69c
+run_name: DNN_32x32
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779331931796
+status: 4
+tags: []
+user_id: macbook
