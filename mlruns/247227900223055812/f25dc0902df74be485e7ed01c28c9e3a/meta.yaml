@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/f25dc0902df74be485e7ed01c28c9e3a/artifacts
+end_time: 1779513564507
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: f25dc0902df74be485e7ed01c28c9e3a
+run_name: rezago_c_naturales__hgb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513563927
+status: 3
+tags: []
+user_id: dburg

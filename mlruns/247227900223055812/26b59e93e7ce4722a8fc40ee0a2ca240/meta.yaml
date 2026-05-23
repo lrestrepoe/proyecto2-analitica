@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/26b59e93e7ce4722a8fc40ee0a2ca240/artifacts
+end_time: 1779513636708
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: 26b59e93e7ce4722a8fc40ee0a2ca240
+run_name: rezago_sociales_ciudadanas__keras_nn
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513635025
+status: 3
+tags: []
+user_id: dburg
