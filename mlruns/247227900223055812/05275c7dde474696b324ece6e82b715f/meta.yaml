@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/05275c7dde474696b324ece6e82b715f/artifacts
+end_time: 1779513582227
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: 05275c7dde474696b324ece6e82b715f
+run_name: rezago_c_naturales__keras_nn
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513581306
+status: 3
+tags: []
+user_id: dburg

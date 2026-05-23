@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/63c5e8ff789a465a98939b89a8a85765/artifacts
+end_time: 1779513643632
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: 63c5e8ff789a465a98939b89a8a85765
+run_name: rezago_ingles__logreg
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513642392
+status: 3
+tags: []
+user_id: dburg

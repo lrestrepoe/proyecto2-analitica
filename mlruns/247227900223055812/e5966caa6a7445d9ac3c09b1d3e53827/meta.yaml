@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/e5966caa6a7445d9ac3c09b1d3e53827/artifacts
+end_time: 1779513543826
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: e5966caa6a7445d9ac3c09b1d3e53827
+run_name: rezago_lectura_critica__keras_nn
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513543075
+status: 3
+tags: []
+user_id: dburg

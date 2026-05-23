@@ -1,0 +1,10 @@
+# Entrenamiento (este notebook)
+pandas
+numpy
+scikit-learn
+matplotlib
+mlflow
+joblib
+tensorflow
+jupyter
+ipykernel

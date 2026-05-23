@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dburg/Desktop/Anal%C3%ADtica/Proyecto%202/proyecto2-analitica/mlruns/247227900223055812/0564ef504f5649919fec0d1aa4a2f64d/artifacts
+end_time: 1779513672893
+entry_point_name: ''
+experiment_id: '247227900223055812'
+lifecycle_stage: active
+run_id: 0564ef504f5649919fec0d1aa4a2f64d
+run_name: rezago_ingles__keras_nn
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779513671952
+status: 3
+tags: []
+user_id: dburg
