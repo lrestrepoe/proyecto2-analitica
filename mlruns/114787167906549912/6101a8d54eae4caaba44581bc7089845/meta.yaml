@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Krest/OneDrive/Escritorio/Uniandes/8/analitica/Proyecto%202/proyecto2-analitica/mlruns/114787167906549912/6101a8d54eae4caaba44581bc7089845/artifacts
+end_time: 1779500346774
+entry_point_name: ''
+experiment_id: '114787167906549912'
+lifecycle_stage: active
+run_id: 6101a8d54eae4caaba44581bc7089845
+run_name: E2_Solo_Puntajes
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779500086567
+status: 3
+tags: []
+user_id: Krest
