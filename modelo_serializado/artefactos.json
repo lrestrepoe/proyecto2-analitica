@@ -15,7 +15,6 @@
     "fami_personashogar",
     "edad",
     "cole_calendario_A",
-    "cole_calendario_B",
     "cole_caracter_ACADEMICO",
     "cole_caracter_NO APLICA",
     "cole_caracter_TECNICO",
@@ -131,7 +130,7 @@
     "B"
   ],
   "metricas": {
-    "MAE": 29.723,
-    "R2": 0.399
+    "MAE": 29.773,
+    "R2": 0.395
   }
 }
