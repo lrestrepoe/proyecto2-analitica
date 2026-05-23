@@ -1,0 +1,9 @@
+# Dashboard en AWS (inferencia)
+dash
+plotly
+pandas
+numpy
+scikit-learn
+joblib
+gunicorn
+tensorflow
