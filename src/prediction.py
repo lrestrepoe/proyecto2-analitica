@@ -52,10 +52,30 @@ def clasificar_nivel(puntaje: float, promedio: float) -> str:
     return "Bajo"
 
 
-def construir_perfil_daniel(perfil_form: dict, predictores: list, perfil_base: dict) -> pd.DataFrame:
-    fila = {col: perfil_base.get(col) for col in predictores}
-    fila.update({k: v for k, v in perfil_form.items() if k in predictores})
-    return pd.DataFrame([fila])
+def construir_perfil_daniel(
+    perfil_form: dict,
+    predictores: list,
+    perfil_base: dict,
+    variables_numericas: list = None,
+) -> pd.DataFrame:
+    variables_numericas = variables_numericas or []
+    fila = {}
+    for col in predictores:
+        if col in perfil_form and perfil_form[col] is not None and perfil_form[col] != "":
+            valor = perfil_form[col]
+        else:
+            valor = perfil_base.get(col, "")
+
+        if col in variables_numericas:
+            try:
+                fila[col] = float(valor)
+            except (TypeError, ValueError):
+                base = perfil_base.get(col, 0)
+                fila[col] = float(base) if base != "" else 0.0
+        else:
+            fila[col] = str(valor) if valor is not None else ""
+
+    return pd.DataFrame([fila])[predictores]
 
 
 def predecir_rezago_areas(modelos: dict, preprocessor, perfil_df: pd.DataFrame) -> pd.DataFrame:
@@ -64,6 +84,9 @@ def predecir_rezago_areas(modelos: dict, preprocessor, perfil_df: pd.DataFrame) 
     for area_nombre, modelo in modelos.items():
         prob = float(modelo.predict(X_trans, verbose=0)[0, 0])
         resultados.append({"area": area_nombre, "probabilidad": prob})
+
+    if not resultados:
+        return pd.DataFrame(columns=["area", "probabilidad", "nivel_riesgo", "prioridad"])
 
     df = pd.DataFrame(resultados).sort_values("probabilidad", ascending=False).reset_index(drop=True)
     df["prioridad"] = df.index + 1
@@ -79,16 +102,25 @@ def nivel_riesgo(prob: float) -> str:
     return "Bajo"
 
 
+def _juntar_lista(items):
+    if not items:
+        return ""
+    if len(items) == 1:
+        return items[0]
+    ultimo = items[-1]
+    conector = "e" if ultimo.strip().lower().startswith(("i", "hi")) else "y"
+    return ", ".join(items[:-1]) + f" {conector} {ultimo}"
+
+
 def texto_recomendacion(df_rezago: pd.DataFrame) -> str:
     altos = df_rezago[df_rezago["nivel_riesgo"] == "Alto"]["area"].tolist()
     medios = df_rezago[df_rezago["nivel_riesgo"] == "Medio"]["area"].tolist()
 
     if altos:
-        partes = [", ".join(altos[:-1]) + " e " + altos[-1] if len(altos) > 1 else altos[0]]
-        msg = f"El perfil evaluado requiere intervención prioritaria en {partes[0]}"
+        msg = f"El perfil evaluado requiere intervención prioritaria en {_juntar_lista(altos)}"
         if medios:
-            msg += f", con seguimiento moderado en {', '.join(medios)}"
+            msg += f", con seguimiento moderado en {_juntar_lista(medios)}"
         return msg + "."
     if medios:
-        return f"El perfil presenta riesgo moderado en {', '.join(medios)}. Se recomienda monitoreo."
+        return f"El perfil presenta riesgo moderado en {_juntar_lista(medios)}. Se recomienda monitoreo."
     return "El perfil presenta riesgo bajo de rezago en todas las áreas evaluadas."

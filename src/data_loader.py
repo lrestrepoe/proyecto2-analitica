@@ -57,3 +57,86 @@ def cargar_artefactos_daniel():
 
 def archivo_existe(path: Path) -> bool:
     return Path(path).exists()
+
+
+def resolver_categorias_y_perfil_base(meta: dict, df: pd.DataFrame) -> dict:
+    """Devuelve {'categorias': ..., 'perfil_base': ..., 'numericas': ..., 'rangos': ...}.
+
+    Usa lo que exista en el metadata. Si una llave no está, la construye desde
+    el dataframe. No depende de nombres antiguos como 'categorias_por_variable'.
+    """
+    predictores = meta.get("predictores", [])
+
+    categorias = {}
+    fuente_meta = (
+        meta.get("categorias_disponibles")
+        or meta.get("categorias_por_variable")
+        or {}
+    )
+    for var in predictores:
+        if var in fuente_meta and fuente_meta[var]:
+            categorias[var] = list(fuente_meta[var])
+        elif var in df.columns and df[var].dtype == object:
+            categorias[var] = sorted(df[var].dropna().astype(str).unique().tolist())
+        else:
+            categorias[var] = []
+
+    numericas = list(meta.get("variables_numericas", []))
+    if not numericas:
+        numericas = [
+            v for v in predictores
+            if v in df.columns and pd.api.types.is_numeric_dtype(df[v])
+        ]
+
+    rangos = meta.get("rangos_numericos", {})
+    for var in numericas:
+        if var not in rangos and var in df.columns:
+            serie = pd.to_numeric(df[var], errors="coerce").dropna()
+            if len(serie):
+                rangos[var] = {
+                    "min": float(serie.min()),
+                    "max": float(serie.max()),
+                    "mediana": float(serie.median()),
+                }
+
+    perfil_base = dict(meta.get("perfil_base", {}))
+    for var in predictores:
+        if var in perfil_base:
+            continue
+        if var in numericas and var in rangos:
+            perfil_base[var] = rangos[var].get("mediana", 0)
+        elif categorias.get(var):
+            perfil_base[var] = categorias[var][0]
+        elif var in df.columns:
+            serie = df[var].dropna()
+            if len(serie):
+                if pd.api.types.is_numeric_dtype(serie):
+                    perfil_base[var] = float(serie.median())
+                else:
+                    perfil_base[var] = str(serie.mode().iloc[0])
+            else:
+                perfil_base[var] = ""
+        else:
+            perfil_base[var] = ""
+
+    return {
+        "categorias": categorias,
+        "perfil_base": perfil_base,
+        "numericas": numericas,
+        "rangos": rangos,
+    }
+
+
+def indice_seguro(opciones: list, preferido) -> int:
+    """Devuelve un índice válido en opciones, prefiriendo `preferido` si existe."""
+    if not opciones:
+        return 0
+    if preferido is None:
+        return 0
+    try:
+        return opciones.index(preferido)
+    except ValueError:
+        try:
+            return opciones.index(str(preferido))
+        except ValueError:
+            return 0

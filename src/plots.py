@@ -208,3 +208,68 @@ def barras_rezago_perfil(df_rezago, titulo="Probabilidad de rezago por área"):
     fig.update_layout(title=titulo, xaxis_title="Probabilidad de rezago",
                       yaxis_title="", xaxis_range=[0, 1])
     return _layout_base(fig, alto=360)
+
+
+def barras_balance_clases(df, areas_dict, p25_dict, titulo="Balance de clases por área (% rezago)"):
+    filas = []
+    for area, col in areas_dict.items():
+        p25 = p25_dict.get(area)
+        if p25 is None or col not in df.columns:
+            continue
+        pct_rezago = float((df[col] < p25).mean()) * 100
+        filas.append({"area": area, "rezago": pct_rezago, "no_rezago": 100 - pct_rezago})
+
+    df_bal = pd.DataFrame(filas).sort_values("rezago")
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=df_bal["no_rezago"], y=df_bal["area"], orientation="h",
+        marker_color=COLOR_NEUTRAL, name="No rezago",
+        text=[f"{v:.1f}%" for v in df_bal["no_rezago"]],
+        textposition="inside",
+    ))
+    fig.add_trace(go.Bar(
+        x=df_bal["rezago"], y=df_bal["area"], orientation="h",
+        marker_color=COLOR_ACCENT, name="Rezago",
+        text=[f"{v:.1f}%" for v in df_bal["rezago"]],
+        textposition="inside",
+    ))
+    fig.update_layout(barmode="stack", title=titulo,
+                      xaxis_title="% estudiantes", yaxis_title="",
+                      xaxis_range=[0, 100])
+    return _layout_base(fig, alto=340).update_layout(
+        showlegend=True, legend=dict(orientation="h", y=-0.15)
+    )
+
+
+def barras_rezago_por_categoria(df, variable, columna_punt, p25, area_nombre, top=15):
+    df_t = df[[variable, columna_punt]].dropna()
+    if df_t.empty:
+        return go.Figure().update_layout(title=f"Sin datos para {variable}")
+
+    df_t = df_t.assign(rezago=(df_t[columna_punt] < p25).astype(int))
+    agg = df_t.groupby(variable).agg(
+        pct_rezago=("rezago", "mean"),
+        n=("rezago", "size"),
+    ).reset_index()
+    agg["pct_rezago"] = agg["pct_rezago"] * 100
+    agg = agg[agg["n"] >= 30].sort_values("pct_rezago", ascending=True).tail(top)
+
+    if agg.empty:
+        return go.Figure().update_layout(title=f"Sin grupos suficientes para {variable}")
+
+    fig = go.Figure(go.Bar(
+        x=agg["pct_rezago"], y=agg[variable].astype(str), orientation="h",
+        marker_color=COLOR_PRIMARY,
+        text=[f"{v:.1f}% (n={n})" for v, n in zip(agg["pct_rezago"], agg["n"])],
+        textposition="outside",
+    ))
+    pct_global = float((df[columna_punt] < p25).mean()) * 100
+    fig.add_vline(x=pct_global, line_dash="dash", line_color=COLOR_ACCENT,
+                  annotation_text=f"Global: {pct_global:.1f}%",
+                  annotation_position="top")
+    fig.update_layout(
+        title=f"% de rezago en {area_nombre} por {variable}",
+        xaxis_title="% rezago", yaxis_title="",
+    )
+    return _layout_base(fig, alto=max(320, 22 * len(agg) + 80))
