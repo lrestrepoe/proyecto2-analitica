@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Krest/OneDrive/Escritorio/Uniandes/8/analitica/Proyecto%202/proyecto2-analitica/mlruns/114787167906549912/12a209615a614d23acca62777d85b690/artifacts
+end_time: 1779580581373
+entry_point_name: ''
+experiment_id: '114787167906549912'
+lifecycle_stage: active
+run_id: 12a209615a614d23acca62777d85b690
+run_name: E3_Todas_Variables
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779580195773
+status: 3
+tags: []
+user_id: Krest
