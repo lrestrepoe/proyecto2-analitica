@@ -1,0 +1,136 @@
+{
+  "columnas_modelo": [
+    "cole_bilingue",
+    "cole_area_ubicacion",
+    "cole_naturaleza",
+    "fami_tieneautomovil",
+    "fami_tienecomputador",
+    "fami_tieneinternet",
+    "fami_tienelavadora",
+    "estu_genero",
+    "fami_estratovivienda",
+    "fami_educacionmadre",
+    "fami_educacionpadre",
+    "fami_cuartoshogar",
+    "fami_personashogar",
+    "edad",
+    "cole_calendario_A",
+    "cole_caracter_ACADEMICO",
+    "cole_caracter_NO APLICA",
+    "cole_caracter_TECNICO",
+    "cole_caracter_TECNICO/ACADEMICO",
+    "cole_jornada_COMPLETA",
+    "cole_jornada_MAÑANA",
+    "cole_jornada_NOCHE",
+    "cole_jornada_SABATINA",
+    "cole_jornada_TARDE",
+    "cole_jornada_UNICA",
+    "cole_genero_FEMENINO",
+    "cole_genero_MASCULINO",
+    "cole_genero_MIXTO"
+  ],
+  "mapeo_bilingue": {
+    "S": 1,
+    "N": 0
+  },
+  "mapeo_area": {
+    "URBANO": 1,
+    "RURAL": 0
+  },
+  "mapeo_naturaleza": {
+    "NO OFICIAL": 1,
+    "OFICIAL": 0
+  },
+  "mapeo_si_no": {
+    "SI": 1,
+    "Si": 1,
+    "NO": 0,
+    "No": 0
+  },
+  "mapeo_genero_estu": {
+    "M": 1,
+    "F": 0
+  },
+  "mapeo_estrato": {
+    "SIN ESTRATO": 0,
+    "ESTRATO 1": 1,
+    "ESTRATO 2": 2,
+    "ESTRATO 3": 3,
+    "ESTRATO 4": 4,
+    "ESTRATO 5": 5,
+    "ESTRATO 6": 6
+  },
+  "mapeo_educacion": {
+    "NINGUNO": 0,
+    "NO SABE": 0,
+    "NO APLICA": 0,
+    "PRIMARIA INCOMPLETA": 1,
+    "PRIMARIA COMPLETA": 2,
+    "SECUNDARIA (BACHILLERATO) INCOMPLETA": 3,
+    "SECUNDARIA (BACHILLERATO) COMPLETA": 4,
+    "TECNICA O TECNOLOGICA INCOMPLETA": 5,
+    "TECNICA O TECNOLOGICA COMPLETA": 6,
+    "EDUCACION PROFESIONAL INCOMPLETA": 7,
+    "EDUCACION PROFESIONAL COMPLETA": 8,
+    "POSTGRADO": 9
+  },
+  "mapeo_cuartos": {
+    "Uno": 1,
+    "Dos": 2,
+    "Tres": 3,
+    "Cuatro": 4,
+    "Cinco": 5,
+    "Seis": 6,
+    "Seis o mas": 6,
+    "Siete": 7,
+    "Ocho": 8,
+    "Nueve": 9,
+    "Diez o más": 10
+  },
+  "mapeo_personas": {
+    "Una": 1,
+    "1 a 2": 1,
+    "Dos": 2,
+    "Tres": 3,
+    "3 a 4": 3,
+    "Cuatro": 4,
+    "Cinco": 5,
+    "5 a 6": 5,
+    "Seis": 6,
+    "Siete": 7,
+    "7 a 8": 7,
+    "Ocho": 8,
+    "Nueve": 9,
+    "9 o más": 9,
+    "Diez": 10,
+    "Once": 11,
+    "Doce o más": 12
+  },
+  "categorias_caracter": [
+    "ACADEMICO",
+    "TECNICO",
+    "TECNICO/ACADEMICO",
+    "NO APLICA"
+  ],
+  "categorias_jornada": [
+    "MAÑANA",
+    "TARDE",
+    "NOCHE",
+    "COMPLETA",
+    "SABATINA",
+    "UNICA"
+  ],
+  "categorias_genero_cole": [
+    "MIXTO",
+    "MASCULINO",
+    "FEMENINO"
+  ],
+  "categorias_calendario": [
+    "A",
+    "B"
+  ],
+  "metricas": {
+    "MAE": 29.773,
+    "R2": 0.395
+  }
+}
