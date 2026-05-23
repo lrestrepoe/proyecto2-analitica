@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/macbook/Desktop/Andes/Semestre 8/Analitica/Proyecto 2/proyecto2-analitica/mlruns/362485170669564923/ba41354a6c734077a09bc3c43749a378/artifacts
+end_time: 1779497418039
+entry_point_name: ''
+experiment_id: '362485170669564923'
+lifecycle_stage: active
+run_id: ba41354a6c734077a09bc3c43749a378
+run_name: GradientBoosting_benchmark
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779497410970
+status: 3
+tags: []
+user_id: macbook
