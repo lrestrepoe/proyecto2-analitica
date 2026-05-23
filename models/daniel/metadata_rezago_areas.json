@@ -1,0 +1,440 @@
+{
+  "proyecto": "Saber11_Bolivar_Rezago_por_Area",
+  "autor": "Daniel David Burgos Lafont",
+  "usuario_final": "Secretaría de Educación de Bolívar",
+  "pregunta_negocio": "¿En qué áreas del Saber 11 presentan los estudiantes mayor probabilidad de rezago académico, y cómo puede la Secretaría de Educación de Bolívar priorizar intervenciones diferenciadas por competencia según el perfil socioeconómico, familiar y escolar del estudiante?",
+  "descripcion": "Familia de cinco modelos de clasificación binaria con red neuronal Keras como modelo oficial, y LogisticRegression + HistGradientBoosting como benchmarks.",
+  "modelo_oficial_dashboard": "keras_nn",
+  "ruta_preprocesador": "preprocessor_rezago_areas.joblib",
+  "predictores": [
+    "edad",
+    "periodo",
+    "estu_genero",
+    "cole_area_ubicacion",
+    "cole_mcpio_ubicacion",
+    "cole_calendario",
+    "cole_bilingue",
+    "cole_naturaleza",
+    "cole_genero",
+    "cole_caracter",
+    "cole_jornada",
+    "fami_estratovivienda",
+    "fami_tienecomputador",
+    "fami_tieneinternet",
+    "fami_tieneautomovil",
+    "fami_tienelavadora",
+    "fami_educacionmadre",
+    "fami_educacionpadre",
+    "fami_cuartoshogar",
+    "fami_personashogar"
+  ],
+  "columnas_predictoras": [
+    "edad",
+    "periodo",
+    "estu_genero",
+    "cole_area_ubicacion",
+    "cole_mcpio_ubicacion",
+    "cole_calendario",
+    "cole_bilingue",
+    "cole_naturaleza",
+    "cole_genero",
+    "cole_caracter",
+    "cole_jornada",
+    "fami_estratovivienda",
+    "fami_tienecomputador",
+    "fami_tieneinternet",
+    "fami_tieneautomovil",
+    "fami_tienelavadora",
+    "fami_educacionmadre",
+    "fami_educacionpadre",
+    "fami_cuartoshogar",
+    "fami_personashogar"
+  ],
+  "variables_categoricas": [
+    "estu_genero",
+    "cole_area_ubicacion",
+    "cole_mcpio_ubicacion",
+    "cole_calendario",
+    "cole_bilingue",
+    "cole_naturaleza",
+    "cole_genero",
+    "cole_caracter",
+    "cole_jornada",
+    "fami_estratovivienda",
+    "fami_tienecomputador",
+    "fami_tieneinternet",
+    "fami_tieneautomovil",
+    "fami_tienelavadora",
+    "fami_educacionmadre",
+    "fami_educacionpadre",
+    "fami_cuartoshogar",
+    "fami_personashogar"
+  ],
+  "variables_numericas": [
+    "edad",
+    "periodo"
+  ],
+  "categorias_disponibles": {
+    "estu_genero": [
+      "F",
+      "M"
+    ],
+    "cole_area_ubicacion": [
+      "RURAL",
+      "URBANO"
+    ],
+    "cole_mcpio_ubicacion": [
+      "ACHI",
+      "ALTOS DEL ROSARIO",
+      "ARENAL",
+      "ARJONA",
+      "ARROYOHONDO",
+      "BARRANCO DE LOBA",
+      "CALAMAR",
+      "CANTAGALLO",
+      "CARTAGENA",
+      "CARTAGENA DE INDIAS",
+      "CICUCO",
+      "CLEMENCIA",
+      "CORDOBA",
+      "EL CARMEN DE BOLIVAR",
+      "EL GUAMO",
+      "EL PENON",
+      "HATILLO DE LOBA",
+      "MAGANGUE",
+      "MAHATES",
+      "MARGARITA",
+      "MARIA LA BAJA",
+      "MOMPOS",
+      "MONTECRISTO",
+      "MORALES",
+      "PINILLOS",
+      "REGIDOR",
+      "RIO VIEJO",
+      "SAN CRISTOBAL",
+      "SAN ESTANISLAO",
+      "SAN FERNANDO",
+      "SAN JACINTO",
+      "SAN JACINTO DEL CAUCA",
+      "SAN JUAN NEPOMUCENO",
+      "SAN MARTIN DE LOBA",
+      "SAN PABLO",
+      "SANTA CATALINA",
+      "SANTA ROSA",
+      "SANTA ROSA DEL SUR",
+      "SIMITI",
+      "SOPLAVIENTO",
+      "TALAIGUA NUEVO",
+      "TIQUISIO",
+      "TIQUISIO (PUERTO RICO)",
+      "TURBACO",
+      "TURBANA",
+      "VILLANUEVA",
+      "ZAMBRANO"
+    ],
+    "cole_calendario": [
+      "A",
+      "B"
+    ],
+    "cole_bilingue": [
+      "N",
+      "S"
+    ],
+    "cole_naturaleza": [
+      "NO OFICIAL",
+      "OFICIAL"
+    ],
+    "cole_genero": [
+      "FEMENINO",
+      "MASCULINO",
+      "MIXTO"
+    ],
+    "cole_caracter": [
+      "ACADEMICO",
+      "NO APLICA",
+      "TECNICO",
+      "TECNICO/ACADEMICO"
+    ],
+    "cole_jornada": [
+      "COMPLETA",
+      "MAÑANA",
+      "NOCHE",
+      "SABATINA",
+      "TARDE",
+      "UNICA"
+    ],
+    "fami_estratovivienda": [
+      "ESTRATO 1",
+      "ESTRATO 2",
+      "ESTRATO 3",
+      "ESTRATO 4",
+      "ESTRATO 5",
+      "ESTRATO 6",
+      "SIN ESTRATO"
+    ],
+    "fami_tienecomputador": [
+      "NO",
+      "SI"
+    ],
+    "fami_tieneinternet": [
+      "NO",
+      "SI"
+    ],
+    "fami_tieneautomovil": [
+      "No",
+      "Si"
+    ],
+    "fami_tienelavadora": [
+      "No",
+      "Si"
+    ],
+    "fami_educacionmadre": [
+      "EDUCACION PROFESIONAL COMPLETA",
+      "EDUCACION PROFESIONAL INCOMPLETA",
+      "NINGUNO",
+      "NO APLICA",
+      "NO SABE",
+      "POSTGRADO",
+      "PRIMARIA COMPLETA",
+      "PRIMARIA INCOMPLETA",
+      "SECUNDARIA (BACHILLERATO) COMPLETA",
+      "SECUNDARIA (BACHILLERATO) INCOMPLETA",
+      "TECNICA O TECNOLOGICA COMPLETA",
+      "TECNICA O TECNOLOGICA INCOMPLETA"
+    ],
+    "fami_educacionpadre": [
+      "EDUCACION PROFESIONAL COMPLETA",
+      "EDUCACION PROFESIONAL INCOMPLETA",
+      "NINGUNO",
+      "NO APLICA",
+      "NO SABE",
+      "POSTGRADO",
+      "PRIMARIA COMPLETA",
+      "PRIMARIA INCOMPLETA",
+      "SECUNDARIA (BACHILLERATO) COMPLETA",
+      "SECUNDARIA (BACHILLERATO) INCOMPLETA",
+      "TECNICA O TECNOLOGICA COMPLETA",
+      "TECNICA O TECNOLOGICA INCOMPLETA"
+    ],
+    "fami_cuartoshogar": [
+      "Cinco",
+      "Cuatro",
+      "Diez o más",
+      "Dos",
+      "Nueve",
+      "Ocho",
+      "Seis",
+      "Seis o mas",
+      "Siete",
+      "Tres",
+      "Uno"
+    ],
+    "fami_personashogar": [
+      "1 a 2",
+      "3 a 4",
+      "5 a 6",
+      "7 a 8",
+      "9 o más",
+      "Cinco",
+      "Cuatro",
+      "Diez",
+      "Doce o más",
+      "Dos",
+      "Nueve",
+      "Ocho",
+      "Once",
+      "Seis",
+      "Siete",
+      "Tres",
+      "Una"
+    ]
+  },
+  "rangos_numericos": {
+    "edad": {
+      "min": 0.0,
+      "max": 119.0,
+      "mediana": 17.0
+    },
+    "periodo": {
+      "min": 20142.0,
+      "max": 20224.0,
+      "mediana": 20162.0
+    }
+  },
+  "perfil_base": {
+    "edad": 17.0,
+    "periodo": 20162.0,
+    "estu_genero": "F",
+    "cole_area_ubicacion": "URBANO",
+    "cole_mcpio_ubicacion": "CARTAGENA",
+    "cole_calendario": "A",
+    "cole_bilingue": "N",
+    "cole_naturaleza": "OFICIAL",
+    "cole_genero": "MIXTO",
+    "cole_caracter": "ACADEMICO",
+    "cole_jornada": "MAÑANA",
+    "fami_estratovivienda": "ESTRATO 1",
+    "fami_tienecomputador": "NO",
+    "fami_tieneinternet": "NO",
+    "fami_tieneautomovil": "No",
+    "fami_tienelavadora": "Si",
+    "fami_educacionmadre": "SECUNDARIA (BACHILLERATO) COMPLETA",
+    "fami_educacionpadre": "SECUNDARIA (BACHILLERATO) COMPLETA",
+    "fami_cuartoshogar": "Dos",
+    "fami_personashogar": "3 a 4"
+  },
+  "variables_clave_dashboard": [
+    "edad",
+    "cole_mcpio_ubicacion",
+    "cole_area_ubicacion",
+    "cole_naturaleza",
+    "cole_jornada",
+    "fami_estratovivienda",
+    "fami_tieneinternet",
+    "fami_tienecomputador",
+    "fami_educacionmadre",
+    "fami_educacionpadre"
+  ],
+  "areas_modeladas": [
+    {
+      "area": "Matemáticas",
+      "target": "rezago_matematicas",
+      "puntaje_origen": "punt_matematicas",
+      "percentil_25_train": 39.0,
+      "archivo_modelo_keras": "keras_rezago_matematicas.keras",
+      "archivo_modelo_benchmark_ganador": "pipeline_best_rezago_matematicas.joblib",
+      "modelo_oficial_dashboard": "keras_nn",
+      "modelo_benchmark_ganador": "hgb",
+      "metricas_keras": {
+        "accuracy": 0.7643,
+        "precision": 0.5974,
+        "recall": 0.3573,
+        "f1": 0.4472,
+        "roc_auc": 0.7671
+      },
+      "metricas_benchmark_ganador": {
+        "accuracy": 0.7674,
+        "precision": 0.6277,
+        "recall": 0.3149,
+        "f1": 0.4194,
+        "roc_auc": 0.7714
+      },
+      "epocas_entrenadas": 25
+    },
+    {
+      "area": "Lectura Crítica",
+      "target": "rezago_lectura_critica",
+      "puntaje_origen": "punt_lectura_critica",
+      "percentil_25_train": 41.0,
+      "archivo_modelo_keras": "keras_rezago_lectura_critica.keras",
+      "archivo_modelo_benchmark_ganador": "pipeline_best_rezago_lectura_critica.joblib",
+      "modelo_oficial_dashboard": "keras_nn",
+      "modelo_benchmark_ganador": "hgb",
+      "metricas_keras": {
+        "accuracy": 0.759,
+        "precision": 0.5909,
+        "recall": 0.2972,
+        "f1": 0.3955,
+        "roc_auc": 0.7666
+      },
+      "metricas_benchmark_ganador": {
+        "accuracy": 0.7598,
+        "precision": 0.5961,
+        "recall": 0.2926,
+        "f1": 0.3925,
+        "roc_auc": 0.7679
+      },
+      "epocas_entrenadas": 19
+    },
+    {
+      "area": "Ciencias Naturales",
+      "target": "rezago_c_naturales",
+      "puntaje_origen": "punt_c_naturales",
+      "percentil_25_train": 40.0,
+      "archivo_modelo_keras": "keras_rezago_c_naturales.keras",
+      "archivo_modelo_benchmark_ganador": "pipeline_best_rezago_c_naturales.joblib",
+      "modelo_oficial_dashboard": "keras_nn",
+      "modelo_benchmark_ganador": "hgb",
+      "metricas_keras": {
+        "accuracy": 0.7503,
+        "precision": 0.611,
+        "recall": 0.2822,
+        "f1": 0.3861,
+        "roc_auc": 0.7514
+      },
+      "metricas_benchmark_ganador": {
+        "accuracy": 0.7512,
+        "precision": 0.6052,
+        "recall": 0.3046,
+        "f1": 0.4053,
+        "roc_auc": 0.7535
+      },
+      "epocas_entrenadas": 21
+    },
+    {
+      "area": "Sociales y Ciudadanas",
+      "target": "rezago_sociales_ciudadanas",
+      "puntaje_origen": "punt_sociales_ciudadanas",
+      "percentil_25_train": 37.0,
+      "archivo_modelo_keras": "keras_rezago_sociales_ciudadanas.keras",
+      "archivo_modelo_benchmark_ganador": "pipeline_best_rezago_sociales_ciudadanas.joblib",
+      "modelo_oficial_dashboard": "keras_nn",
+      "modelo_benchmark_ganador": "hgb",
+      "metricas_keras": {
+        "accuracy": 0.7608,
+        "precision": 0.5901,
+        "recall": 0.2502,
+        "f1": 0.3514,
+        "roc_auc": 0.7576
+      },
+      "metricas_benchmark_ganador": {
+        "accuracy": 0.7645,
+        "precision": 0.6157,
+        "recall": 0.2412,
+        "f1": 0.3467,
+        "roc_auc": 0.7591
+      },
+      "epocas_entrenadas": 18
+    },
+    {
+      "area": "Inglés",
+      "target": "rezago_ingles",
+      "puntaje_origen": "punt_ingles",
+      "percentil_25_train": 40.0,
+      "archivo_modelo_keras": "keras_rezago_ingles.keras",
+      "archivo_modelo_benchmark_ganador": "pipeline_best_rezago_ingles.joblib",
+      "modelo_oficial_dashboard": "keras_nn",
+      "modelo_benchmark_ganador": "hgb",
+      "metricas_keras": {
+        "accuracy": 0.7685,
+        "precision": 0.6202,
+        "recall": 0.3649,
+        "f1": 0.4595,
+        "roc_auc": 0.7749
+      },
+      "metricas_benchmark_ganador": {
+        "accuracy": 0.769,
+        "precision": 0.6255,
+        "recall": 0.3572,
+        "f1": 0.4548,
+        "roc_auc": 0.7763
+      },
+      "epocas_entrenadas": 19
+    }
+  ],
+  "regla_area_prioritaria": "Para un perfil dado, se calculan las cinco probabilidades de rezago y se selecciona como área prioritaria la de mayor probabilidad.",
+  "particion": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "n_train": 98292,
+    "n_test": 24574
+  },
+  "versiones": {
+    "python": "3.12.0",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.8.0",
+    "tensorflow": "2.21.0",
+    "mlflow": "3.12.0"
+  },
+  "semilla": 42
+}

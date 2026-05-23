@@ -1,0 +1,16 @@
+{
+  "n_train": 98293,
+  "n_test": 24573,
+  "mae": 29.7731,
+  "rmse": 37.9053,
+  "r2": 0.3952,
+  "mape": 12.9256,
+  "residuo_media": 3.0146,
+  "residuo_std": 37.7853,
+  "real_min": 8.0,
+  "real_max": 452.0,
+  "pred_min": 141.54,
+  "pred_max": 385.66,
+  "mae_metadata": 29.773,
+  "r2_metadata": 0.395
+}
