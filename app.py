@@ -1,6 +1,6 @@
 """Punto de entrada del dashboard Saber 11 Bolívar.
 
-Ejecutar: py -m streamlit run app.py
+Ejecutar: "py -m streamlit run app.py"
 """
 import streamlit as st
 
