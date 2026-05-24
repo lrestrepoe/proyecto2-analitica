@@ -23,6 +23,21 @@ def _dropdown(id_, opciones, valor=None, label=None):
     return html.Div(children, className="form-field")
 
 
+def _dropdown_pares(id_, pares, valor=None, label=None):
+    """Dropdown donde cada opción es (etiqueta_visible, valor_interno).
+    Muestra una etiqueta limpia al usuario pero envía al modelo el valor
+    que el mapeo reconoce."""
+    children = []
+    if label:
+        children.append(html.Label(label))
+    children.append(dcc.Dropdown(
+        id=id_, options=[{"label": etq, "value": val} for etq, val in pares],
+        value=valor if valor is not None else (pares[0][1] if pares else None),
+        clearable=False, style={"fontSize": "13px"},
+    ))
+    return html.Div(children, className="form-field")
+
+
 def layout():
     df = cargar_datos()
     if df is None:
@@ -80,10 +95,14 @@ def layout():
 
     return html.Div([
         encabezado_pagina(
-            "Puntaje Global",
+            "Pregunta 1 - Predicción puntaje global",
             "Modelo de regresión — Juan Felipe",
-            pregunta="¿Qué puntaje global esperado tendría un estudiante según "
-                     "su perfil socioeconómico, familiar, escolar e institucional?",
+            pregunta="¿Qué factores socioeconómicos, demográficos y del entorno "
+                     "escolar permiten predecir el puntaje global Saber 11 de los "
+                     "estudiantes, y cómo puede la Secretaría de Educación estimar "
+                     "el puntaje esperado de distintos perfiles de estudiante para "
+                     "focalizar programas de refuerzo académico en las poblaciones "
+                     "con mayor riesgo de bajo desempeño?",
         ),
 
         seccion(1, "Análisis exploratorio del puntaje global"),
@@ -94,11 +113,36 @@ def layout():
         html.Div(seccion_metricas),
         separador(),
 
-        seccion(3, "Validación gráfica"),
+        seccion(3, "Benchmark — Gradient Boosting"),
+        caja_interpretacion(
+            "Para validar que el desempeño de la red neuronal no está limitado por "
+            "la elección del algoritmo, se entrenó un modelo de **Gradient Boosting** "
+            "(árboles potenciados) con exactamente las mismas variables. Sirve como "
+            "punto de referencia: si ambos modelos alcanzan un desempeño similar, se "
+            "confirma que el límite predictivo proviene de la información disponible "
+            "en los datos y no del modelo elegido."
+        ),
+        kpi_row([
+            ("MAE", "29.55", None),
+            ("RMSE", "37.33", None),
+            ("R²", "0.413", None),
+        ]),
+        caja_interpretacion(
+            "El Gradient Boosting obtuvo un R² de **0.413** frente al **0.395** de la "
+            "red neuronal, una diferencia de apenas **0.018**. Ambos modelos convergen "
+            "al mismo techo predictivo, lo que confirma que la red neuronal —modelo "
+            "principal del proyecto— opera cerca del límite de información de las "
+            "variables disponibles. El contexto socioeconómico y escolar explica cerca "
+            "del 40% de la varianza del puntaje; el resto depende de factores "
+            "individuales no capturados, dejando margen para la intervención pedagógica."
+        ),
+        separador(),
+
+        seccion(4, "Validación gráfica"),
         html.Div([graf_pred, graf_res], className="row-2"),
         separador(),
 
-        seccion(4, "Importancia de variables (permutation importance)"),
+        seccion(5, "Importancia de variables (permutation importance)"),
         graf_imp,
         caja_interpretacion(
             "La importancia se mide como el incremento del MAE cuando se "
@@ -107,7 +151,7 @@ def layout():
         ),
         separador(),
 
-        seccion(5, "Simulador de puntaje global"),
+        seccion(6, "Simulador de puntaje global"),
         simulador,
     ])
 
@@ -141,12 +185,19 @@ def _layout_simulador(art):
                            list(art["mapeo_educacion"].keys())[4]
                            if len(art["mapeo_educacion"]) > 4 else list(art["mapeo_educacion"].keys())[0],
                            "Educación padre"),
-                _dropdown("jf-fami_cuartoshogar",
-                           list(art["mapeo_cuartos"].keys()),
-                           label="Cuartos en el hogar"),
-                _dropdown("jf-fami_personashogar",
-                           list(art["mapeo_personas"].keys()),
-                           label="Personas en el hogar"),
+                _dropdown_pares(
+                    "jf-fami_cuartoshogar",
+                    [("1", "Uno"), ("2", "Dos"), ("3", "Tres"), ("4", "Cuatro"),
+                     ("5", "Cinco"), ("6", "Seis"), ("7", "Siete"), ("8", "Ocho"),
+                     ("9", "Nueve"), ("10 o más", "Diez o más")],
+                    valor="Tres", label="Cuartos en el hogar"),
+                _dropdown_pares(
+                    "jf-fami_personashogar",
+                    [("1", "Una"), ("2", "Dos"), ("3", "Tres"), ("4", "Cuatro"),
+                     ("5", "Cinco"), ("6", "Seis"), ("7", "Siete"), ("8", "Ocho"),
+                     ("9", "Nueve"), ("10", "Diez"), ("11", "Once"),
+                     ("12 o más", "Doce o más")],
+                    valor="Cuatro", label="Personas en el hogar"),
             ], className="form-section"),
 
             html.Div([
