@@ -1,0 +1,225 @@
+/* Saber 11 Bolívar — Dashboard */
+:root {
+    --primary: #1B3A6B;
+    --secondary: #2E6DB4;
+    --accent: #C0392B;
+    --neutral: #D9DEE4;
+    --dark: #2C3E50;
+    --bg: #FFFFFF;
+    --bg-soft: #F4F6F8;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--dark);
+    background-color: var(--bg);
+    margin: 0;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem 3rem 2rem;
+}
+
+.app-header {
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.app-header h1 {
+    color: var(--primary);
+    margin: 0;
+    font-size: 1.7rem;
+}
+
+.app-header .subtitle {
+    color: var(--dark);
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+}
+
+.tabs-container .tab {
+    padding: 0.7rem 1.2rem !important;
+    font-weight: 500 !important;
+    color: var(--dark) !important;
+}
+
+.tabs-container .tab--selected {
+    background-color: var(--primary) !important;
+    color: white !important;
+    border-top: 3px solid var(--accent) !important;
+}
+
+.page-header {
+    margin-bottom: 1rem;
+}
+
+.page-title {
+    color: var(--primary);
+    margin: 0.5rem 0 0.2rem 0;
+}
+
+.page-subtitle {
+    color: var(--dark);
+    font-style: italic;
+    margin: 0 0 0.5rem 0;
+}
+
+.info-box {
+    background-color: #EBF1F8;
+    border-left: 4px solid var(--secondary);
+    padding: 0.7rem 1rem;
+    margin: 0.6rem 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.warning-box {
+    background-color: #FEF5E7;
+    border-left: 4px solid #E67E22;
+    padding: 0.7rem 1rem;
+    margin: 0.6rem 0;
+    border-radius: 4px;
+}
+
+.interpretation-box {
+    background-color: var(--bg-soft);
+    border-left: 4px solid var(--primary);
+    padding: 0.7rem 1rem;
+    margin: 0.6rem 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.section-title {
+    color: var(--primary);
+    margin: 1.5rem 0 0.3rem 0;
+    font-size: 1.15rem;
+}
+
+.section-subtitle {
+    color: #5F6F7F;
+    font-size: 0.85rem;
+    margin: 0 0 0.7rem 0;
+}
+
+.separator {
+    border: none;
+    border-top: 1px solid var(--neutral);
+    margin: 1.5rem 0;
+}
+
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+    margin: 0.7rem 0;
+}
+
+.kpi-card {
+    background-color: white;
+    border: 1px solid var(--neutral);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.kpi-label {
+    color: var(--dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+
+.kpi-value {
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.kpi-delta {
+    color: #5F6F7F;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.row-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.form-section {
+    background-color: var(--bg-soft);
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 0.7rem 0;
+}
+
+.form-section h4 {
+    color: var(--primary);
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.form-field {
+    margin-bottom: 0.6rem;
+}
+
+.form-field label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--dark);
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary);
+}
+
+.empty-state {
+    padding: 1rem;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+
+.footer-credits {
+    border-top: 1px solid var(--neutral);
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    color: #777;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .row-2, .row-3, .row-5 { grid-template-columns: 1fr; }
+    .app-container { padding: 1rem; }
+}
