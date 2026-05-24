@@ -1,4 +1,6 @@
 """Tab: Panorama General."""
+import unicodedata
+
 from dash import dcc, html
 
 from src.config import AREAS
@@ -9,10 +11,32 @@ from src.ui_dash import (caja_interpretacion, encabezado_pagina, kpi_row,
                           seccion, separador)
 
 
+ALIAS_MUNICIPIOS = {
+    "CARTAGENA DE INDIAS": "CARTAGENA",
+    "TIQUISIO (PUERTO RICO)": "TIQUISIO",
+    "PUERTO RICO": "TIQUISIO",
+    "MOMPOX": "MOMPOS",
+    "SANTA ROSA DE LIMA": "SANTA ROSA",
+}
+
+
+def _normalizar_municipio(nombre):
+    if nombre is None:
+        return nombre
+    texto = str(nombre).strip().upper()
+    texto = unicodedata.normalize("NFKD", texto)
+    texto = "".join(c for c in texto if not unicodedata.combining(c))
+    texto = " ".join(texto.split())
+    return ALIAS_MUNICIPIOS.get(texto, texto)
+
+
 def layout():
     df = cargar_datos()
     if df is None:
         return html.Div("Base de datos no disponible en data/.", className="warning-box")
+
+    df = df.copy()
+    df["cole_mcpio_ubicacion"] = df["cole_mcpio_ubicacion"].map(_normalizar_municipio)
 
     promedios_areas = {n: float(df[c].mean()) for n, c in AREAS.items()}
     area_baja = min(promedios_areas, key=promedios_areas.get)
@@ -94,7 +118,7 @@ def layout():
                 html.H4("⚠️ Riesgo Académico"),
                 html.P("Modelo complementario de clasificación que apoya la "
                        "priorización general de estudiantes en riesgo."),
-                html.Small("Encargado: Luis (en integración)", style={"color": "#666"}),
+                html.Small("Encargado: Luis · Modelo integrado", style={"color": "#666"}),
             ], className="form-section"),
         ], className="row-3"),
     ])
