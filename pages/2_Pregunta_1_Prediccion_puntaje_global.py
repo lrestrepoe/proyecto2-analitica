@@ -95,10 +95,10 @@ st.markdown("### 3. Benchmark — Gradient Boosting")
 st.markdown(
     "Para validar que el desempeño de la red neuronal no está limitado por la "
     "elección del algoritmo, se entrenó un modelo de **Gradient Boosting** "
-    "(árboles potenciados) usando exactamente las mismas variables. Sirve como "
-    "punto de referencia: si ambos modelos alcanzan un desempeño similar, se "
-    "confirma que el límite predictivo proviene de la información disponible en "
-    "los datos y no del modelo elegido."
+    "usando exactamente las mismas variables. Sirve como punto de referencia: "
+    " si ambos modelos alcanzan un desempeño similar, se confirma que el "
+    "límite predictivo proviene de la información disponible en los datos y no "
+    "del modelo elegido."
 )
 
 kpi_row([
@@ -110,8 +110,8 @@ kpi_row([
 caja_interpretacion(
     "El Gradient Boosting obtuvo un R² de <b>0.413</b> frente al <b>0.395</b> de la "
     "red neuronal, una diferencia de apenas <b>0.018</b>. Ambos modelos convergen al "
-    "mismo techo predictivo, lo que confirma que la red neuronal —modelo principal de "
-    "este proyecto— opera cerca del límite de información de las variables disponibles. "
+    "mismo techo predictivo, lo que confirma que la red neuronal opera cerca del "
+    "límite de información de las variables disponibles. "
     "Las variables socioeconómicas y de contexto escolar explican cerca del 40% de la "
     "varianza del puntaje; el resto depende de factores individuales no capturados en "
     "los datos, dejando un margen relevante para la intervención pedagógica focalizada."
