@@ -162,7 +162,7 @@ def _layout_simulador(art):
             html.Div([
                 html.H4("Estudiante"),
                 html.Div([html.Label("Edad"),
-                          dcc.Input(id="jf-edad", type="number", min=12, max=30,
+                          dcc.Input(id="jf-edad", type="number", min=14, max=23,
                                      value=17, style={"width": "100%"})],
                           className="form-field"),
                 _dropdown("jf-estu_genero", ["F", "M"], "F", "Género"),

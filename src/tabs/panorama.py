@@ -103,22 +103,22 @@ def layout():
         seccion(4, "Tres capas de análisis"),
         html.Div([
             html.Div([
-                html.H4("🎯 Puntaje Global"),
+                html.H4("Puntaje Global"),
                 html.P("Modelo de regresión que estima el puntaje global "
                        "esperado a partir del perfil del estudiante."),
                 html.Small("Encargado: Juan Felipe", style={"color": "#666"}),
             ], className="form-section"),
             html.Div([
-                html.H4("📚 Rezago por Área"),
+                html.H4("Rezago por Área"),
                 html.P("Cinco modelos de clasificación, uno por área, que "
                        "estiman la probabilidad de quedar en el cuartil inferior."),
                 html.Small("Encargado: Daniel", style={"color": "#666"}),
             ], className="form-section"),
             html.Div([
-                html.H4("⚠️ Riesgo Académico"),
+                html.H4("Riesgo Académico"),
                 html.P("Modelo complementario de clasificación que apoya la "
                        "priorización general de estudiantes en riesgo."),
-                html.Small("Encargado: Luis · Modelo integrado", style={"color": "#666"}),
+                html.Small("Encargado: Luis", style={"color": "#666"}),
             ], className="form-section"),
         ], className="row-3"),
     ])
