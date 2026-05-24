@@ -72,6 +72,7 @@ def renderizar_tab(tab):
 
 juan_felipe.register_callbacks(app)
 daniel.register_callbacks(app)
+luis.register_callbacks(app)
 
 
 if __name__ == "__main__":
