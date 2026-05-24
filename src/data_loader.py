@@ -47,6 +47,8 @@ def cargar_artefactos_daniel():
         "metadata": cargar_json(str(MODELS_DANI / "metadata_rezago_areas.json")),
         "metricas": cargar_json(str(MODELS_DANI / "metricas_test.json")),
         "comparacion": cargar_csv(str(MODELS_DANI / "comparacion_modelos.csv")),
+        "configs_keras": cargar_csv(str(MODELS_DANI / "comparacion_configuraciones_keras.csv")),
+        "mejores_configs": cargar_csv(str(MODELS_DANI / "mejores_configuraciones_keras.csv")),
         "curvas_roc": cargar_json(str(MODELS_DANI / "curvas_roc.json")),
         "curvas_pr": cargar_json(str(MODELS_DANI / "curvas_pr.json")),
         "matrices": cargar_json(str(MODELS_DANI / "matrices_confusion.json")),

@@ -96,18 +96,21 @@ def layout():
         sec_2 = html.Div(f"No se pudo generar balance: {e}", className="warning-box")
         sec_2_msg = html.Div()
 
-    # Sección 4: comparación de modelos
+    # Sección 4: comparación de configuraciones Keras
+    sec_4_configs = _construir_seccion_configs(art)
+
+    # Sección 5: comparación de modelos
     if art["comparacion"] is None:
-        sec_4 = mensaje_artefacto_faltante("comparacion_modelos.csv",
+        sec_5 = mensaje_artefacto_faltante("comparacion_modelos.csv",
                                               MODELS_DANI / "comparacion_modelos.csv")
-        sec_4_msg = html.Div()
+        sec_5_msg = html.Div()
     else:
         df_comp = art["comparacion"].copy()
         cols_orden = ["area", "modelo", "accuracy", "precision", "recall",
                       "f1", "roc_auc", "average_precision"]
         df_comp = df_comp[[c for c in cols_orden if c in df_comp.columns]]
         df_comp.columns = [c.replace("_", " ").title() for c in df_comp.columns]
-        sec_4 = dash_table.DataTable(
+        sec_5 = dash_table.DataTable(
             columns=[{"name": c, "id": c} for c in df_comp.columns],
             data=df_comp.to_dict("records"),
             style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "12px",
@@ -123,13 +126,15 @@ def layout():
             aucs = df_comp[df_comp["Modelo"] == "KERAS"].set_index("Area")["Roc Auc"]
             mejor = aucs.idxmax()
             peor = aucs.idxmin()
-            sec_4_msg = caja_interpretacion(
-                f"El modelo Keras tiene mejor poder discriminativo en **{mejor}** "
-                f"(AUC = {aucs[mejor]:.3f}) y más débil en **{peor}** "
-                f"(AUC = {aucs[peor]:.3f})."
+            sec_5_msg = caja_interpretacion(
+                f"La mejor red neuronal por área tiene mejor poder discriminativo "
+                f"en **{mejor}** (AUC = {aucs[mejor]:.3f}) y más débil en "
+                f"**{peor}** (AUC = {aucs[peor]:.3f}). El HGB se mantiene como "
+                f"benchmark supervisado para datos tabulares; no reemplaza a la "
+                f"red neuronal, solo sirve como referencia."
             )
         except Exception:
-            sec_4_msg = html.Div()
+            sec_5_msg = html.Div()
 
     # Verificación de archivos para el simulador
     modelos_ok = all(archivo_existe(MODELS_DANI / a["archivo_modelo_keras"])
@@ -175,11 +180,19 @@ def layout():
                style={"fontSize": "0.85rem", "color": "#666"}),
         separador(),
 
-        seccion(4, "Comparación Keras vs HGB"),
-        sec_4, sec_4_msg,
+        seccion(4, "Comparación de arquitecturas de red neuronal",
+                 "Para cada área se evaluaron distintas configuraciones de red "
+                 "neuronal. La mejor se seleccionó por ROC AUC."),
+        sec_4_configs,
         separador(),
 
-        seccion(5, "Curvas ROC y Precision-Recall"),
+        seccion(5, "Comparación final: mejor red neuronal vs HGB",
+                 "La red neuronal ganadora por área se contrasta con un modelo "
+                 "HGB tomado como benchmark supervisado para datos tabulares."),
+        sec_5, sec_5_msg,
+        separador(),
+
+        seccion(6, "Curvas ROC y Precision-Recall"),
         _dropdown("dani-curvas-area", areas_lista, areas_lista[0], "Área"),
         html.Div([
             dcc.Graph(id="dani-curva-roc", config={"displayModeBar": False}),
@@ -187,7 +200,7 @@ def layout():
         ], className="row-2"),
         separador(),
 
-        seccion(6, "Matrices de confusión (umbral 0.5)"),
+        seccion(7, "Matrices de confusión (umbral 0.5)"),
         _dropdown("dani-mat-area", areas_lista, areas_lista[0], "Área"),
         html.Div([
             dcc.Graph(id="dani-mat-keras", config={"displayModeBar": False}),
@@ -195,12 +208,12 @@ def layout():
         ], className="row-2"),
         separador(),
 
-        seccion(7, "Importancia de variables (permutation, HGB)"),
+        seccion(8, "Importancia de variables (permutation, HGB)"),
         _dropdown("dani-imp-area", areas_lista, areas_lista[0], "Área"),
         dcc.Graph(id="dani-imp-graf", config={"displayModeBar": False}),
         separador(),
 
-        seccion(8, "Simulador de probabilidad de rezago por área"),
+        seccion(9, "Simulador de probabilidad de rezago por área"),
         simulador,
     ])
 
@@ -447,7 +460,7 @@ def register_callbacks(app):
             )
 
             return html.Div([
-                html.H4("9. Priorización del perfil ingresado",
+                html.H4("10. Priorización del perfil ingresado",
                          style={"color": "#1B3A6B", "marginTop": "1rem"}),
                 html.Div([
                     html.Div([
@@ -466,10 +479,108 @@ def register_callbacks(app):
                                config={"displayModeBar": False}),
                 ], className="row-2"),
 
-                html.H4("10. Recomendación",
+                html.H4("11. Recomendación",
                          style={"color": "#1B3A6B", "marginTop": "1rem"}),
                 caja_interpretacion(texto_recomendacion(df_rez)),
             ])
         except Exception as e:
             return html.Div(f"Error al generar la predicción: {e}",
                              className="warning-box")
+
+
+def _construir_seccion_configs(art):
+    """Sección 4: tabla de configuraciones Keras + selección de la mejor por área."""
+    df_configs = art.get("configs_keras")
+    df_mejores = art.get("mejores_configs")
+
+    if df_configs is None or df_configs.empty:
+        return mensaje_artefacto_faltante(
+            "comparacion_configuraciones_keras.csv",
+            MODELS_DANI / "comparacion_configuraciones_keras.csv",
+        )
+
+    texto_intro = html.P(
+        "Para cada área se evaluaron cinco configuraciones de red neuronal, "
+        "variando arquitectura, regularización (dropout), tasa de aprendizaje "
+        "y tamaño de lote. La mejor configuración se seleccionó por ROC AUC "
+        "sobre el conjunto de prueba, con F1 y recall como desempate. "
+        "La red ganadora por área se persiste como modelo Keras oficial y "
+        "luego se contrasta con HGB como benchmark (sección 5).",
+        style={"fontSize": "0.92rem", "color": "#444"},
+    )
+
+    cols_mostrar = [
+        "area", "configuracion", "arquitectura", "dropout",
+        "learning_rate", "batch_size", "epochs_entrenadas",
+        "roc_auc", "f1", "recall", "precision", "accuracy",
+        "average_precision",
+    ]
+    df_show = df_configs[[c for c in cols_mostrar if c in df_configs.columns]].copy()
+    df_show.columns = [c.replace("_", " ").title() for c in df_show.columns]
+
+    mejores_set = set()
+    if df_mejores is not None and not df_mejores.empty:
+        mejores_set = set(zip(df_mejores["area"], df_mejores["mejor_configuracion"]))
+
+    style_data_conditional = []
+    if mejores_set:
+        for area_n, config_n in mejores_set:
+            style_data_conditional.append({
+                "if": {
+                    "filter_query": f'{{Area}} = "{area_n}" && '
+                                     f'{{Configuracion}} = "{config_n}"'
+                },
+                "backgroundColor": "#D5E8D4",
+                "fontWeight": "600",
+            })
+
+    tabla_configs = dash_table.DataTable(
+        columns=[{"name": c, "id": c} for c in df_show.columns],
+        data=df_show.to_dict("records"),
+        style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "11.5px",
+                     "padding": "5px", "textAlign": "center"},
+        style_header={"backgroundColor": "#1B3A6B", "color": "white",
+                       "fontWeight": "600"},
+        style_data_conditional=style_data_conditional,
+        page_size=30,
+    )
+
+    contenido = [texto_intro, tabla_configs]
+
+    if df_mejores is not None and not df_mejores.empty:
+        df_m = df_mejores.copy()
+        cols_m = ["area", "mejor_configuracion", "roc_auc", "f1",
+                  "recall", "precision", "accuracy"]
+        df_m = df_m[[c for c in cols_m if c in df_m.columns]]
+        df_m.columns = [c.replace("_", " ").title() for c in df_m.columns]
+
+        tabla_mejores = dash_table.DataTable(
+            columns=[{"name": c, "id": c} for c in df_m.columns],
+            data=df_m.to_dict("records"),
+            style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "12.5px",
+                         "padding": "8px", "textAlign": "center"},
+            style_header={"backgroundColor": "#27AE60", "color": "white",
+                           "fontWeight": "600"},
+            style_data={"backgroundColor": "#EAF7EE"},
+        )
+        contenido.append(html.H4(
+            "Mejor configuración seleccionada por área",
+            style={"color": "#1B3A6B", "marginTop": "1rem", "fontSize": "1rem"},
+        ))
+        contenido.append(tabla_mejores)
+
+        try:
+            top = df_mejores.sort_values("roc_auc", ascending=False).iloc[0]
+            bot = df_mejores.sort_values("roc_auc", ascending=True).iloc[0]
+            contenido.append(caja_interpretacion(
+                f"La mejor red neuronal global se obtuvo en **{top['area']}** con "
+                f"la configuración **{top['mejor_configuracion']}** (AUC = "
+                f"{top['roc_auc']:.3f}). La más difícil de modelar fue "
+                f"**{bot['area']}** con AUC = {bot['roc_auc']:.3f}. La diversidad "
+                f"de configuraciones ganadoras entre áreas sugiere que no existe "
+                f"una arquitectura universalmente óptima."
+            ))
+        except Exception:
+            pass
+
+    return html.Div(contenido)

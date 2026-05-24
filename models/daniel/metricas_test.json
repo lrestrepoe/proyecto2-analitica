@@ -1,12 +1,12 @@
 {
   "Matemáticas": {
     "keras": {
-      "accuracy": 0.7781801904451859,
-      "precision": 0.5509943906170321,
-      "recall": 0.36933857460263203,
-      "f1": 0.4422388212421979,
-      "roc_auc": 0.7664949177245359,
-      "average_precision": 0.49456294949776824
+      "accuracy": 0.7804,
+      "precision": 0.606,
+      "recall": 0.2218,
+      "f1": 0.3248,
+      "roc_auc": 0.7674,
+      "average_precision": 0.4971
     },
     "hgb": {
       "accuracy": 0.7841214291527631,
@@ -19,12 +19,12 @@
   },
   "Lectura Crítica": {
     "keras": {
-      "accuracy": 0.7798486204932042,
-      "precision": 0.5161683953630263,
-      "recall": 0.3067440174039159,
-      "f1": 0.38480782351603365,
-      "roc_auc": 0.7616407655543465,
-      "average_precision": 0.45730484624742196
+      "accuracy": 0.782,
+      "precision": 0.544,
+      "recall": 0.1769,
+      "f1": 0.267,
+      "roc_auc": 0.761,
+      "average_precision": 0.4503
     },
     "hgb": {
       "accuracy": 0.7813542768780012,
@@ -37,12 +37,12 @@
   },
   "Ciencias Naturales": {
     "keras": {
-      "accuracy": 0.7729307398062993,
-      "precision": 0.5539727761949984,
-      "recall": 0.29555818273940215,
-      "f1": 0.3854625550660793,
-      "roc_auc": 0.7474792726726702,
-      "average_precision": 0.48012591442522023
+      "accuracy": 0.7736,
+      "precision": 0.5934,
+      "recall": 0.1915,
+      "f1": 0.2896,
+      "roc_auc": 0.7464,
+      "average_precision": 0.4807
     },
     "hgb": {
       "accuracy": 0.7718320175795557,
@@ -55,12 +55,12 @@
   },
   "Sociales y Ciudadanas": {
     "keras": {
-      "accuracy": 0.780336941482868,
-      "precision": 0.544477390659748,
-      "recall": 0.260553387726144,
-      "f1": 0.352447216890595,
-      "roc_auc": 0.756726706099731,
-      "average_precision": 0.4688211362882395
+      "accuracy": 0.7827,
+      "precision": 0.6009,
+      "recall": 0.1573,
+      "f1": 0.2494,
+      "roc_auc": 0.7568,
+      "average_precision": 0.4697
     },
     "hgb": {
       "accuracy": 0.7846911369740376,
@@ -73,12 +73,12 @@
   },
   "Inglés": {
     "keras": {
-      "accuracy": 0.7905916822658093,
-      "precision": 0.569376763272634,
-      "recall": 0.3903639880429049,
-      "f1": 0.4631754642186522,
-      "roc_auc": 0.7825175984638876,
-      "average_precision": 0.5168746677052332
+      "accuracy": 0.7932,
+      "precision": 0.5867,
+      "recall": 0.3594,
+      "f1": 0.4458,
+      "roc_auc": 0.7805,
+      "average_precision": 0.5168
     },
     "hgb": {
       "accuracy": 0.7916090176609425,
