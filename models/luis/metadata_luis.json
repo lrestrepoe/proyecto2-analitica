@@ -1,0 +1,44 @@
+{
+  "modelo": "Red Neuronal Densa - Clasificación Binaria",
+  "pregunta_negocio": "¿Es posible predecir si un estudiante proviene de una zona rural o urbana a partir de sus resultados académicos y perfil familiar?",
+  "target": "cole_area_ubicacion",
+  "clases": {
+    "0": "RURAL",
+    "1": "URBANO"
+  },
+  "arquitectura": "64-32-16 + Dropout",
+  "optimizer": "adam",
+  "loss": "binary_crossentropy",
+  "epochs": 50,
+  "batch_size": 32,
+  "cat_str_feats": [
+    "estu_genero",
+    "fami_estratovivienda",
+    "fami_educacionpadre",
+    "fami_educacionmadre",
+    "fami_tieneinternet",
+    "fami_tienecomputador",
+    "fami_tieneautomovil",
+    "fami_tienelavadora",
+    "cole_naturaleza",
+    "cole_jornada",
+    "cole_bilingue",
+    "cole_caracter",
+    "cole_calendario"
+  ],
+  "num_feats": [
+    "punt_matematicas",
+    "punt_lectura_critica",
+    "punt_c_naturales",
+    "punt_sociales_ciudadanas",
+    "punt_ingles",
+    "punt_global",
+    "edad"
+  ],
+  "metricas_test": {
+    "accuracy": 0.8419,
+    "auc": 0.8519,
+    "recall": 0.9501,
+    "precision": 0.8698
+  }
+}
