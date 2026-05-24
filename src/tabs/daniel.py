@@ -488,99 +488,102 @@ def register_callbacks(app):
                              className="warning-box")
 
 
+def _formatear_configuracion(row):
+    """Convierte una fila de configuración en texto legible para el dashboard."""
+    arq = str(row.get("arquitectura", "")).replace("+", "-")
+    dropout = row.get("dropout", 0)
+    try:
+        dropout = float(dropout)
+    except (TypeError, ValueError):
+        dropout = 0
+    dropout_txt = f"{dropout:.2f}" if dropout > 0 else "No"
+
+    lr = row.get("learning_rate", "")
+    try:
+        lr_txt = f"{float(lr):g}"
+    except (TypeError, ValueError):
+        lr_txt = str(lr)
+
+    batch = row.get("batch_size", "")
+    try:
+        batch_txt = f"{int(batch)}"
+    except (TypeError, ValueError):
+        batch_txt = str(batch)
+
+    return f"Arquitectura: {arq} | Dropout: {dropout_txt} | LR: {lr_txt} | Batch: {batch_txt}"
+
+
 def _construir_seccion_configs(art):
-    """Sección 4: tabla de configuraciones Keras + selección de la mejor por área."""
+    """Sección 4: tabla resumen con la mejor configuración legible por área."""
     df_configs = art.get("configs_keras")
     df_mejores = art.get("mejores_configs")
 
-    if df_configs is None or df_configs.empty:
+    if df_mejores is None or df_mejores.empty:
         return mensaje_artefacto_faltante(
-            "comparacion_configuraciones_keras.csv",
-            MODELS_DANI / "comparacion_configuraciones_keras.csv",
+            "mejores_configuraciones_keras.csv",
+            MODELS_DANI / "mejores_configuraciones_keras.csv",
         )
 
     texto_intro = html.P(
         "Para cada área se evaluaron cinco configuraciones de red neuronal, "
-        "variando arquitectura, regularización (dropout), tasa de aprendizaje "
-        "y tamaño de lote. La mejor configuración se seleccionó por ROC AUC "
-        "sobre el conjunto de prueba, con F1 y recall como desempate. "
-        "La red ganadora por área se persiste como modelo Keras oficial y "
-        "luego se contrasta con HGB como benchmark (sección 5).",
+        "variando arquitectura, regularización, tasa de aprendizaje y tamaño "
+        "de lote. La mejor configuración se seleccionó con base en ROC AUC "
+        "sobre el conjunto de prueba.",
         style={"fontSize": "0.92rem", "color": "#444"},
     )
 
-    cols_mostrar = [
-        "area", "configuracion", "arquitectura", "dropout",
-        "learning_rate", "batch_size", "epochs_entrenadas",
-        "roc_auc", "f1", "recall", "precision", "accuracy",
-        "average_precision",
-    ]
-    df_show = df_configs[[c for c in cols_mostrar if c in df_configs.columns]].copy()
-    df_show.columns = [c.replace("_", " ").title() for c in df_show.columns]
+    # Mapa de nombre técnico → descripción legible, construido desde el detalle
+    mapa_legible = {}
+    if df_configs is not None and not df_configs.empty:
+        vistos = df_configs.drop_duplicates(subset=["configuracion"])
+        for _, fila in vistos.iterrows():
+            mapa_legible[fila["configuracion"]] = _formatear_configuracion(fila)
 
-    mejores_set = set()
-    if df_mejores is not None and not df_mejores.empty:
-        mejores_set = set(zip(df_mejores["area"], df_mejores["mejor_configuracion"]))
-
-    style_data_conditional = []
-    if mejores_set:
-        for area_n, config_n in mejores_set:
-            style_data_conditional.append({
-                "if": {
-                    "filter_query": f'{{Area}} = "{area_n}" && '
-                                     f'{{Configuracion}} = "{config_n}"'
-                },
-                "backgroundColor": "#D5E8D4",
-                "fontWeight": "600",
-            })
-
-    tabla_configs = dash_table.DataTable(
-        columns=[{"name": c, "id": c} for c in df_show.columns],
-        data=df_show.to_dict("records"),
-        style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "11.5px",
-                     "padding": "5px", "textAlign": "center"},
-        style_header={"backgroundColor": "#1B3A6B", "color": "white",
-                       "fontWeight": "600"},
-        style_data_conditional=style_data_conditional,
-        page_size=30,
+    df_m = df_mejores.copy()
+    df_m["mejor_configuracion_legible"] = df_m["mejor_configuracion"].map(
+        lambda c: mapa_legible.get(c, c)
     )
 
-    contenido = [texto_intro, tabla_configs]
+    cols_m = ["area", "mejor_configuracion_legible", "roc_auc", "f1",
+              "recall", "precision", "accuracy"]
+    df_m = df_m[[c for c in cols_m if c in df_m.columns]]
+    df_m.columns = ["Área", "Mejor configuración", "ROC AUC", "F1",
+                    "Recall", "Precision", "Accuracy"]
 
-    if df_mejores is not None and not df_mejores.empty:
-        df_m = df_mejores.copy()
-        cols_m = ["area", "mejor_configuracion", "roc_auc", "f1",
-                  "recall", "precision", "accuracy"]
-        df_m = df_m[[c for c in cols_m if c in df_m.columns]]
-        df_m.columns = [c.replace("_", " ").title() for c in df_m.columns]
+    for col in ["ROC AUC", "F1", "Recall", "Precision", "Accuracy"]:
+        if col in df_m.columns:
+            df_m[col] = df_m[col].round(4)
 
-        tabla_mejores = dash_table.DataTable(
-            columns=[{"name": c, "id": c} for c in df_m.columns],
-            data=df_m.to_dict("records"),
-            style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "12.5px",
-                         "padding": "8px", "textAlign": "center"},
-            style_header={"backgroundColor": "#27AE60", "color": "white",
-                           "fontWeight": "600"},
-            style_data={"backgroundColor": "#EAF7EE"},
-        )
-        contenido.append(html.H4(
-            "Mejor configuración seleccionada por área",
-            style={"color": "#1B3A6B", "marginTop": "1rem", "fontSize": "1rem"},
+    tabla_mejores = dash_table.DataTable(
+        columns=[{"name": c, "id": c} for c in df_m.columns],
+        data=df_m.to_dict("records"),
+        style_cell={"fontFamily": "Segoe UI, Arial", "fontSize": "12.5px",
+                     "padding": "8px", "textAlign": "center",
+                     "whiteSpace": "normal", "height": "auto"},
+        style_cell_conditional=[
+            {"if": {"column_id": "Mejor configuración"},
+             "textAlign": "left", "minWidth": "280px"},
+        ],
+        style_header={"backgroundColor": "#1B3A6B", "color": "white",
+                       "fontWeight": "600"},
+        style_data={"backgroundColor": "#EAF7EE"},
+    )
+
+    contenido = [texto_intro, tabla_mejores]
+
+    try:
+        top = df_mejores.sort_values("roc_auc", ascending=False).iloc[0]
+        bot = df_mejores.sort_values("roc_auc", ascending=True).iloc[0]
+        top_legible = mapa_legible.get(top["mejor_configuracion"], top["mejor_configuracion"])
+        contenido.append(caja_interpretacion(
+            f"La mejor red neuronal global se obtuvo en **{top['area']}** con la "
+            f"configuración _{top_legible}_ (AUC = {top['roc_auc']:.3f}). La más "
+            f"difícil de modelar fue **{bot['area']}** con AUC = "
+            f"{bot['roc_auc']:.3f}. La diversidad de configuraciones ganadoras "
+            f"entre áreas sugiere que no existe una arquitectura universalmente "
+            f"óptima."
         ))
-        contenido.append(tabla_mejores)
-
-        try:
-            top = df_mejores.sort_values("roc_auc", ascending=False).iloc[0]
-            bot = df_mejores.sort_values("roc_auc", ascending=True).iloc[0]
-            contenido.append(caja_interpretacion(
-                f"La mejor red neuronal global se obtuvo en **{top['area']}** con "
-                f"la configuración **{top['mejor_configuracion']}** (AUC = "
-                f"{top['roc_auc']:.3f}). La más difícil de modelar fue "
-                f"**{bot['area']}** con AUC = {bot['roc_auc']:.3f}. La diversidad "
-                f"de configuraciones ganadoras entre áreas sugiere que no existe "
-                f"una arquitectura universalmente óptima."
-            ))
-        except Exception:
-            pass
+    except Exception:
+        pass
 
     return html.Div(contenido)
