@@ -117,10 +117,10 @@ def layout():
         caja_interpretacion(
             "Para validar que el desempeño de la red neuronal no está limitado por "
             "la elección del algoritmo, se entrenó un modelo de **Gradient Boosting** "
-            "(árboles potenciados) con exactamente las mismas variables. Sirve como "
-            "punto de referencia: si ambos modelos alcanzan un desempeño similar, se "
-            "confirma que el límite predictivo proviene de la información disponible "
-            "en los datos y no del modelo elegido."
+            "con exactamente las mismas variables. Sirve como punto de referencia: "
+            "si ambos modelos alcanzan un desempeño similar, se confirma que el límite "
+            "predictivo proviene de la información disponible en los datos y no del "
+            "modelo elegido."
         ),
         kpi_row([
             ("MAE", "29.55", None),
@@ -130,11 +130,11 @@ def layout():
         caja_interpretacion(
             "El Gradient Boosting obtuvo un R² de **0.413** frente al **0.395** de la "
             "red neuronal, una diferencia de apenas **0.018**. Ambos modelos convergen "
-            "al mismo techo predictivo, lo que confirma que la red neuronal —modelo "
-            "principal del proyecto— opera cerca del límite de información de las "
+            "al mismo techo predictivo, lo que confirma que la red neuronal opera "
             "variables disponibles. El contexto socioeconómico y escolar explica cerca "
-            "del 40% de la varianza del puntaje; el resto depende de factores "
-            "individuales no capturados, dejando margen para la intervención pedagógica."
+            "cerca del límite de información de las del 40% de la varianza del puntaje; "
+            "el resto depende de factores individuales no capturados, dejando margen "
+            "para la intervención pedagógica."
         ),
         separador(),
 
