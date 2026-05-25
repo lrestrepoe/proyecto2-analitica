@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Krest/OneDrive/Escritorio/Uniandes/8/analitica/Proyecto%202/proyecto2-analitica/mlruns/667948634685469054/b8f5572911ea476798c1c6e952051597/artifacts
+end_time: 1779742695308
+entry_point_name: ''
+experiment_id: '667948634685469054'
+lifecycle_stage: active
+run_id: b8f5572911ea476798c1c6e952051597
+run_name: C1_64-32_SinDropout_LR0005_B32
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779742567544
+status: 3
+tags: []
+user_id: Krest
