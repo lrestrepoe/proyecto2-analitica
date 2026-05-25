@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Krest/OneDrive/Escritorio/Uniandes/8/analitica/Proyecto%202/proyecto2-analitica/mlruns/667948634685469054/cbd45a8777fe4032a88c0522b222af2a/artifacts
+end_time: 1779746788187
+entry_point_name: ''
+experiment_id: '667948634685469054'
+lifecycle_stage: active
+run_id: cbd45a8777fe4032a88c0522b222af2a
+run_name: 'Arq. 128-64-32 | Sin Dropout | LR: 0.001 | Batch: 64'
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779746713460
+status: 3
+tags: []
+user_id: Krest

@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Krest/OneDrive/Escritorio/Uniandes/8/analitica/Proyecto%202/proyecto2-analitica/mlruns/667948634685469054/b3d6e7d6ef9344b7b6f399d3b6643001/artifacts
+end_time: 1779746713421
+entry_point_name: ''
+experiment_id: '667948634685469054'
+lifecycle_stage: active
+run_id: b3d6e7d6ef9344b7b6f399d3b6643001
+run_name: 'Arq. 64-32 | Con Dropout | LR: 0.0005 | Batch: 32'
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779746534321
+status: 3
+tags: []
+user_id: Krest
