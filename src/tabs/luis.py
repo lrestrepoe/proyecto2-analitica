@@ -424,7 +424,7 @@ def register_callbacks(app):
                 [entrada[c] for c in cat_feats] +
                 [entrada[c] for c in num_feats]
             )
-            prob_urbano = float(modelo.serve(*entrada_lista)[0, 0])
+            prob_urbano = float(modelo.serve(entrada_lista)[0, 0])
             prob_rural = 1 - prob_urbano
             clase_predicha = "URBANO" if prob_urbano >= 0.5 else "RURAL"
             confianza = max(prob_urbano, prob_rural)
