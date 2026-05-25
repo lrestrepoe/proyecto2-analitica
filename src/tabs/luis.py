@@ -35,7 +35,11 @@ def _cargar_modelo_luis():
     import tensorflow as tf
     if not PATH_MODELO.exists():
         return None
-    return tf.keras.models.load_model(PATH_MODELO, compile=False)
+    try:
+        return tf.keras.models.load_model(PATH_MODELO, compile=False,
+                                          safe_mode=False)
+    except Exception:
+        return tf.keras.models.load_model(PATH_MODELO, compile=False)
 
 
 def layout():
