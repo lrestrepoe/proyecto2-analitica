@@ -43,7 +43,7 @@ app.layout = html.Div(
                          className="tab", selected_className="tab--selected"),
                 dcc.Tab(label="Rezago por Área · Daniel", value="tab-daniel",
                          className="tab", selected_className="tab--selected"),
-                dcc.Tab(label="Riesgo Académico · Luis", value="tab-luis",
+                dcc.Tab(label="Clasificación Zona · Luis", value="tab-luis",
                          className="tab", selected_className="tab--selected"),
             ],
         ),
