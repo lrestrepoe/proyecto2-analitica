@@ -306,20 +306,23 @@
       "modelo_oficial_dashboard": "keras_nn",
       "modelo_benchmark_ganador": "hgb",
       "metricas_keras": {
-        "accuracy": 0.7643,
-        "precision": 0.5974,
-        "recall": 0.3573,
-        "f1": 0.4472,
-        "roc_auc": 0.7671
+        "accuracy": 0.7804,
+        "precision": 0.606,
+        "recall": 0.2218,
+        "f1": 0.3248,
+        "roc_auc": 0.7674,
+        "average_precision": 0.4971
       },
       "metricas_benchmark_ganador": {
-        "accuracy": 0.7674,
-        "precision": 0.6277,
-        "recall": 0.3149,
-        "f1": 0.4194,
-        "roc_auc": 0.7714
+        "accuracy": 0.7841214291527631,
+        "precision": 0.5829787234042553,
+        "recall": 0.32780721244231753,
+        "f1": 0.41964774094737994,
+        "roc_auc": 0.7706683107637853,
+        "average_precision": 0.5064327516965358
       },
-      "epocas_entrenadas": 25
+      "epocas_entrenadas": 25,
+      "mejor_configuracion_keras": "Keras_64x32_lr0005"
     },
     {
       "area": "Lectura Crítica",
@@ -331,20 +334,23 @@
       "modelo_oficial_dashboard": "keras_nn",
       "modelo_benchmark_ganador": "hgb",
       "metricas_keras": {
-        "accuracy": 0.759,
-        "precision": 0.5909,
-        "recall": 0.2972,
-        "f1": 0.3955,
-        "roc_auc": 0.7666
+        "accuracy": 0.782,
+        "precision": 0.544,
+        "recall": 0.1769,
+        "f1": 0.267,
+        "roc_auc": 0.761,
+        "average_precision": 0.4503
       },
       "metricas_benchmark_ganador": {
-        "accuracy": 0.7598,
-        "precision": 0.5961,
-        "recall": 0.2926,
-        "f1": 0.3925,
-        "roc_auc": 0.7679
+        "accuracy": 0.7813542768780012,
+        "precision": 0.5223507346045639,
+        "recall": 0.3029369108049311,
+        "f1": 0.38347676419965576,
+        "roc_auc": 0.7628593130576323,
+        "average_precision": 0.46323402699372646
       },
-      "epocas_entrenadas": 19
+      "epocas_entrenadas": 19,
+      "mejor_configuracion_keras": "Keras_64x32_lr0005"
     },
     {
       "area": "Ciencias Naturales",
@@ -356,20 +362,23 @@
       "modelo_oficial_dashboard": "keras_nn",
       "modelo_benchmark_ganador": "hgb",
       "metricas_keras": {
-        "accuracy": 0.7503,
-        "precision": 0.611,
-        "recall": 0.2822,
-        "f1": 0.3861,
-        "roc_auc": 0.7514
+        "accuracy": 0.7736,
+        "precision": 0.5934,
+        "recall": 0.1915,
+        "f1": 0.2896,
+        "roc_auc": 0.7464,
+        "average_precision": 0.4807
       },
       "metricas_benchmark_ganador": {
-        "accuracy": 0.7512,
-        "precision": 0.6052,
-        "recall": 0.3046,
-        "f1": 0.4053,
-        "roc_auc": 0.7535
+        "accuracy": 0.7718320175795557,
+        "precision": 0.5456130156885531,
+        "recall": 0.3171761526769127,
+        "f1": 0.40115347644985583,
+        "roc_auc": 0.7486977000819408,
+        "average_precision": 0.4859101144673603
       },
-      "epocas_entrenadas": 21
+      "epocas_entrenadas": 21,
+      "mejor_configuracion_keras": "Keras_64x32_lr0005"
     },
     {
       "area": "Sociales y Ciudadanas",
@@ -381,20 +390,23 @@
       "modelo_oficial_dashboard": "keras_nn",
       "modelo_benchmark_ganador": "hgb",
       "metricas_keras": {
-        "accuracy": 0.7608,
-        "precision": 0.5901,
-        "recall": 0.2502,
-        "f1": 0.3514,
-        "roc_auc": 0.7576
+        "accuracy": 0.7827,
+        "precision": 0.6009,
+        "recall": 0.1573,
+        "f1": 0.2494,
+        "roc_auc": 0.7568,
+        "average_precision": 0.4697
       },
       "metricas_benchmark_ganador": {
-        "accuracy": 0.7645,
-        "precision": 0.6157,
-        "recall": 0.2412,
-        "f1": 0.3467,
-        "roc_auc": 0.7591
+        "accuracy": 0.7846911369740376,
+        "precision": 0.5695948656237465,
+        "recall": 0.2518623625399078,
+        "f1": 0.3492805312999631,
+        "roc_auc": 0.7586561763730423,
+        "average_precision": 0.4784446049586901
       },
-      "epocas_entrenadas": 18
+      "epocas_entrenadas": 18,
+      "mejor_configuracion_keras": "Keras_64x32_batch64"
     },
     {
       "area": "Inglés",
@@ -406,20 +418,23 @@
       "modelo_oficial_dashboard": "keras_nn",
       "modelo_benchmark_ganador": "hgb",
       "metricas_keras": {
-        "accuracy": 0.7685,
-        "precision": 0.6202,
-        "recall": 0.3649,
-        "f1": 0.4595,
-        "roc_auc": 0.7749
+        "accuracy": 0.7932,
+        "precision": 0.5867,
+        "recall": 0.3594,
+        "f1": 0.4458,
+        "roc_auc": 0.7805,
+        "average_precision": 0.5168
       },
       "metricas_benchmark_ganador": {
-        "accuracy": 0.769,
-        "precision": 0.6255,
-        "recall": 0.3572,
-        "f1": 0.4548,
-        "roc_auc": 0.7763
+        "accuracy": 0.7916090176609425,
+        "precision": 0.5747885835095138,
+        "recall": 0.3824512045014946,
+        "f1": 0.4592968007602154,
+        "roc_auc": 0.7843122715647686,
+        "average_precision": 0.5221620338733675
       },
-      "epocas_entrenadas": 19
+      "epocas_entrenadas": 19,
+      "mejor_configuracion_keras": "Keras_64x32_lr0005"
     }
   ],
   "regla_area_prioritaria": "Para un perfil dado, se calculan las cinco probabilidades de rezago y se selecciona como área prioritaria la de mayor probabilidad.",
@@ -436,5 +451,71 @@
     "tensorflow": "2.21.0",
     "mlflow": "3.12.0"
   },
-  "semilla": 42
+  "semilla": 42,
+  "mejores_configuraciones": {
+    "Matemáticas": "Keras_64x32_lr0005",
+    "Lectura Crítica": "Keras_64x32_lr0005",
+    "Ciencias Naturales": "Keras_64x32_lr0005",
+    "Sociales y Ciudadanas": "Keras_64x32_batch64",
+    "Inglés": "Keras_64x32_lr0005"
+  },
+  "configuraciones_evaluadas": [
+    {
+      "nombre": "Keras_32x16",
+      "capas": [
+        32,
+        16
+      ],
+      "dropout": 0.0,
+      "lr": 0.001,
+      "batch_size": 32
+    },
+    {
+      "nombre": "Keras_64x32",
+      "capas": [
+        64,
+        32
+      ],
+      "dropout": 0.0,
+      "lr": 0.001,
+      "batch_size": 32
+    },
+    {
+      "nombre": "Keras_128x64_dropout",
+      "capas": [
+        128,
+        64
+      ],
+      "dropout": 0.3,
+      "lr": 0.001,
+      "batch_size": 32
+    },
+    {
+      "nombre": "Keras_64x32_lr0005",
+      "capas": [
+        64,
+        32
+      ],
+      "dropout": 0.0,
+      "lr": 0.0005,
+      "batch_size": 32
+    },
+    {
+      "nombre": "Keras_64x32_batch64",
+      "capas": [
+        64,
+        32
+      ],
+      "dropout": 0.0,
+      "lr": 0.001,
+      "batch_size": 64
+    }
+  ],
+  "entrenamiento": {
+    "epochs_max": 8,
+    "patience": 4,
+    "seed": 42,
+    "val_frac": 0.15,
+    "tiempo_total_seg": 869.8
+  }
 }

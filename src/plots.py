@@ -273,3 +273,67 @@ def barras_rezago_por_categoria(df, variable, columna_punt, p25, area_nombre, to
         xaxis_title="% rezago", yaxis_title="",
     )
     return _layout_base(fig, alto=max(320, 22 * len(agg) + 80))
+
+def curva_roc_simple(curva_dict, titulo="Curva ROC"):
+    """ROC para modelo binario único. Espera {'fpr':[], 'tpr':[], 'auc':n}."""
+    fig = go.Figure()
+    auc_val = curva_dict.get("auc", 0)
+    fig.add_trace(go.Scatter(
+        x=curva_dict.get("fpr", []), y=curva_dict.get("tpr", []),
+        mode="lines", line=dict(color=COLOR_PRIMARY, width=2.5),
+        name=f"Modelo (AUC = {auc_val:.3f})",
+    ))
+    fig.add_trace(go.Scatter(
+        x=[0, 1], y=[0, 1], mode="lines",
+        line=dict(color=COLOR_NEUTRAL, dash="dash"),
+        showlegend=False,
+    ))
+    fig.update_layout(
+        title=titulo,
+        xaxis_title="False Positive Rate", yaxis_title="True Positive Rate",
+    )
+    return _layout_base(fig, alto=380).update_layout(
+        showlegend=True, legend=dict(x=0.45, y=0.05),
+    )
+
+
+def matriz_confusion_simple(cm_dict, titulo="Matriz de confusión"):
+    """Matriz 2x2 plana. Espera {'matrix':[[..],[..]], 'labels':[...], ...}."""
+    z = np.array(cm_dict.get("matrix", [[0, 0], [0, 0]]))
+    etiquetas = cm_dict.get("labels", ["Clase 0", "Clase 1"])
+    fig = go.Figure(go.Heatmap(
+        z=z, x=etiquetas, y=etiquetas,
+        colorscale=[[0, "#FFFFFF"], [1, COLOR_PRIMARY]],
+        showscale=False,
+        text=[[f"{v:,}" for v in fila] for fila in z],
+        texttemplate="%{text}",
+        textfont=dict(size=16),
+    ))
+    fig.update_layout(title=titulo, xaxis_title="Predicho", yaxis_title="Real")
+    return _layout_base(fig, alto=360)
+
+
+def barras_comparacion_experimentos(df_comp, metrica="accuracy",
+                                     titulo=None, col_label="experimento"):
+    """Barras horizontales para comparar experimentos según una métrica.
+    df_comp debe tener una columna identificadora (default 'experimento')
+    y la columna de la métrica."""
+    if df_comp is None or df_comp.empty or metrica not in df_comp.columns:
+        return go.Figure().update_layout(title=f"Sin datos de {metrica}")
+
+    df_t = df_comp.sort_values(metrica, ascending=True)
+    valor_max = df_t[metrica].max()
+    colores = [COLOR_ACCENT if v == valor_max else COLOR_PRIMARY for v in df_t[metrica]]
+    fig = go.Figure(go.Bar(
+        x=df_t[metrica], y=df_t[col_label].astype(str), orientation="h",
+        marker_color=colores,
+        text=[f"{v:.4f}" for v in df_t[metrica]],
+        textposition="outside",
+    ))
+    fig.update_layout(
+        title=titulo or f"Comparación de experimentos por {metrica}",
+        xaxis_title=metrica, yaxis_title="",
+        xaxis_range=[0, max(1.0, df_t[metrica].max() * 1.15)],
+    )
+    return _layout_base(fig, alto=max(280, 60 * len(df_t) + 80))
+

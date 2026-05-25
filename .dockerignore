@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.git/
+.venv/
+.streamlit/
+*.ipynb
+DatosSaber11_Bolivar.csv
+mlruns/
+scripts/
+.pytest_cache/
+.vscode/
+README.md

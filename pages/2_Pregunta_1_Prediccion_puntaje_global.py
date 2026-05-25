@@ -95,10 +95,10 @@ st.markdown("### 3. Benchmark — Gradient Boosting")
 st.markdown(
     "Para validar que el desempeño de la red neuronal no está limitado por la "
     "elección del algoritmo, se entrenó un modelo de **Gradient Boosting** "
-    "(árboles potenciados) usando exactamente las mismas variables. Sirve como "
-    "punto de referencia: si ambos modelos alcanzan un desempeño similar, se "
-    "confirma que el límite predictivo proviene de la información disponible en "
-    "los datos y no del modelo elegido."
+    "usando exactamente las mismas variables. Sirve como punto de referencia: "
+    " si ambos modelos alcanzan un desempeño similar, se confirma que el "
+    "límite predictivo proviene de la información disponible en los datos y no "
+    "del modelo elegido."
 )
 
 kpi_row([
@@ -110,8 +110,8 @@ kpi_row([
 caja_interpretacion(
     "El Gradient Boosting obtuvo un R² de <b>0.413</b> frente al <b>0.395</b> de la "
     "red neuronal, una diferencia de apenas <b>0.018</b>. Ambos modelos convergen al "
-    "mismo techo predictivo, lo que confirma que la red neuronal —modelo principal de "
-    "este proyecto— opera cerca del límite de información de las variables disponibles. "
+    "mismo techo predictivo, lo que confirma que la red neuronal opera cerca del "
+    "límite de información de las variables disponibles. "
     "Las variables socioeconómicas y de contexto escolar explican cerca del 40% de la "
     "varianza del puntaje; el resto depende de factores individuales no capturados en "
     "los datos, dejando un margen relevante para la intervención pedagógica focalizada."
@@ -178,6 +178,20 @@ else:
     modelo = cargar_modelo_jf()
     artefactos = art["artefactos"]
 
+    # Opciones limpias para el usuario: muestra un número, pero internamente
+    # se envía una llave válida del diccionario de mapeo (que el modelo entiende).
+    # Cada tupla es (etiqueta_visible, llave_para_el_mapeo).
+    OPC_CUARTOS = [
+        ("1", "Uno"), ("2", "Dos"), ("3", "Tres"), ("4", "Cuatro"),
+        ("5", "Cinco"), ("6", "Seis"), ("7", "Siete"), ("8", "Ocho"),
+        ("9", "Nueve"), ("10 o más", "Diez o más"),
+    ]
+    OPC_PERSONAS = [
+        ("1", "Una"), ("2", "Dos"), ("3", "Tres"), ("4", "Cuatro"),
+        ("5", "Cinco"), ("6", "Seis"), ("7", "Siete"), ("8", "Ocho"),
+        ("9", "Nueve"), ("10", "Diez"), ("11", "Once"), ("12 o más", "Doce o más"),
+    ]
+
     with st.form("simulador_jf"):
         c1, c2, c3 = st.columns(3)
         with c1:
@@ -195,9 +209,11 @@ else:
             fami_educacionpadre = st.selectbox(
                 "Educación padre", list(artefactos["mapeo_educacion"].keys()), index=4)
             fami_cuartoshogar = st.selectbox(
-                "Cuartos en el hogar", list(artefactos["mapeo_cuartos"].keys()))
+                "Cuartos en el hogar", OPC_CUARTOS,
+                index=2, format_func=lambda x: x[0])
             fami_personashogar = st.selectbox(
-                "Personas en el hogar", list(artefactos["mapeo_personas"].keys()))
+                "Personas en el hogar", OPC_PERSONAS,
+                index=3, format_func=lambda x: x[0])
 
         with c3:
             st.markdown("**Bienes y colegio**")
@@ -226,8 +242,8 @@ else:
             "fami_estratovivienda": fami_estratovivienda,
             "fami_educacionmadre": fami_educacionmadre,
             "fami_educacionpadre": fami_educacionpadre,
-            "fami_cuartoshogar": fami_cuartoshogar,
-            "fami_personashogar": fami_personashogar,
+            "fami_cuartoshogar": fami_cuartoshogar[1],
+            "fami_personashogar": fami_personashogar[1],
             "fami_tieneautomovil": fami_tieneautomovil,
             "fami_tienecomputador": fami_tienecomputador,
             "fami_tieneinternet": fami_tieneinternet,
