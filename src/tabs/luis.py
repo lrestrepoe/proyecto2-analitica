@@ -33,13 +33,10 @@ def _cargar_modelo_luis():
     import os
     os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "3")
     import tensorflow as tf
-    if not PATH_MODELO.exists():
+    PATH_SAVEDMODEL = MODELS_LUIS / "modelo_urbano_rural_savedmodel"
+    if not PATH_SAVEDMODEL.exists():
         return None
-    try:
-        return tf.keras.models.load_model(PATH_MODELO, compile=False,
-                                          safe_mode=False)
-    except Exception:
-        return tf.keras.models.load_model(PATH_MODELO, compile=False)
+    return tf.saved_model.load(str(PATH_SAVEDMODEL))
 
 
 def layout():
@@ -423,7 +420,11 @@ def register_callbacks(app):
                     v = 0.0
                 entrada[col] = tf.constant([[v]], dtype=tf.float32)
 
-            prob_urbano = float(modelo.predict(entrada, verbose=0)[0, 0])
+            entrada_lista = (
+                [entrada[c] for c in cat_feats] +
+                [entrada[c] for c in num_feats]
+            )
+            prob_urbano = float(modelo.serve(*entrada_lista)[0, 0])
             prob_rural = 1 - prob_urbano
             clase_predicha = "URBANO" if prob_urbano >= 0.5 else "RURAL"
             confianza = max(prob_urbano, prob_rural)
